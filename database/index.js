@@ -7,7 +7,7 @@ let repoSchema = mongoose.Schema({
   owner: String,
   url: String,
   description: String,
-  forks: Number,
+  stars: Number,
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -19,13 +19,14 @@ let save = (arrayRepos) => {
   for (let i = 0; i < arrayRepos.length; i++) {
     var fullRepo = arrayRepos[i];
     var owner = fullRepo.owner.login;
-    var newRepo = new Repo({id: fullRepo.id, name: fullRepo.name, owner: owner, url: fullRepo.html_url, description: fullRepo.description, forks: fullRepo.forks});
+    var newRepo = new Repo({id: fullRepo.id, name: fullRepo.name, owner: owner, url: fullRepo.html_url, description: fullRepo.description, stars: fullRepo.stargazers_count});
     newRepo.save();
   }
 }
 
+//gets top 25 repos sorted by number of stars
 let getRepos = (callback) => {
-  Repo.find((err, repos) => {
+  Repo.find().limit(25).sort({stars: -1}).exec((err, repos) => {
     callback(repos);
   });
 }
