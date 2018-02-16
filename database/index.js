@@ -13,9 +13,6 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (arrayRepos) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
   for (let i = 0; i < arrayRepos.length; i++) {
     var fullRepo = arrayRepos[i];
     var owner = fullRepo.owner.login;
