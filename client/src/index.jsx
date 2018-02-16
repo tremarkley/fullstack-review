@@ -10,15 +10,30 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
+    this.handleRepoData = this.handleRepoData.bind(this);
+    this.loadRepos();
+  }
 
+  loadRepos() {
+    $.get('/repos', {
+      dataType: 'application/json',
+    }, this.handleRepoData);
+  }
+
+  handleRepoData(data) {
+    var repoArray = JSON.parse(data);
+    this.setState({
+      repos: repoArray
+    });
   }
 
   search (term) {
-    debugger
-    console.log(`${term} was searched`);
-    $.post('/repos', term, (data)=> {
-      console.log('posted to /repos: ' + data);
-    }, 'application/json');
+    $.post({
+      url: '/repos',
+      data: JSON.stringify({user: term}),
+      contentType: 'application/json',
+      dataType: 'application/json',
+    });
   }
 
   render () {

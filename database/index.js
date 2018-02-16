@@ -12,12 +12,23 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = ({id, name, owner, url, description, forks}) => {
+let save = (arrayRepos) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  var newRepo = new Repo({id: id, name: name, owner: owner, url: url, description: description, forks: forks});
-  newRepo.save();
+  for (let i = 0; i < arrayRepos.length; i++) {
+    var fullRepo = arrayRepos[i];
+    var owner = fullRepo.owner.login;
+    var newRepo = new Repo({id: fullRepo.id, name: fullRepo.name, owner: owner, url: fullRepo.html_url, description: fullRepo.description, forks: fullRepo.forks});
+    newRepo.save();
+  }
+}
+
+let getRepos = (callback) => {
+  Repo.find((err, repos) => {
+    callback(repos);
+  });
 }
 
 module.exports.save = save;
+module.exports.getRepos = getRepos;
