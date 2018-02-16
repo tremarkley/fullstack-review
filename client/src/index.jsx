@@ -14,8 +14,11 @@ class App extends React.Component {
   }
 
   search (term) {
+    debugger
     console.log(`${term} was searched`);
-    // TODO
+    $.post('/repos', term, (data)=> {
+      console.log('posted to /repos: ' + data);
+    }, 'application/json');
   }
 
   render () {
