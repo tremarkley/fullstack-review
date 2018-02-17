@@ -21,8 +21,8 @@ let save = (arrayRepos, callback) => {
 
     var query = { 'id': repoDoc.id };
 
-    Repo.findOneAndUpdate(query, repoDoc, { upsert:true }, function(err, doc){
-      if (err) { callback(error) };
+    Repo.findOneAndUpdate(query, repoDoc, { upsert:true }, (err, doc) => {
+      callback(err);
       //return res.send("succesfully saved");
     });
     // new Repo(repoDoc).save((err, repo) => {
