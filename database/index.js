@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/fetcher');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
@@ -13,13 +12,15 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (arrayRepos) => {
+let save = (arrayRepos, callback) => {
   for (let i = 0; i < arrayRepos.length; i++) {
     var repoDoc = arrayRepos[i];
     repoDoc.owner = repoDoc.owner.login;
     repoDoc.url = repoDoc.html_url;
     repoDoc.stars = repoDoc.stargazers_count;
-    new Repo(repoDoc).save();
+    new Repo(repoDoc).save((err, repo) => {
+      callback(err);
+    });
   }
 }
 

@@ -16,13 +16,11 @@ class App extends React.Component {
 
   componentDidMount() {
     if (this.state.repos.length === 0) {
-      console.log('Calling load repos!');
       this.loadRepos();
     }
   }
 
   loadRepos() {
-    console.log('load repos called!');
     $.get('/repos', {
       dataType: 'application/json',
     }, this.handleRepoData);
@@ -36,9 +34,6 @@ class App extends React.Component {
   }
 
   search (term) {
-    //refactor this to not pass an ajax call into the cb
-    //this might change the way you handle the post request on the server (hint: redirect?)
-    //$.post('/repos', { user: term }, this.loadRepos);
     $.post('/repos', { user: term }, this.handleRepoData);
   }
 

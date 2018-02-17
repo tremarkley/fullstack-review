@@ -17,14 +17,18 @@ app.post('/repos', function (req, res, next) {
     //be verbose about errors, show them to the user
     if (!error && response.statusCode === 200) {
       var repos = JSON.parse(body);
-      db.save(repos);
-      // res.statusCode = 201;
-      // res.end('Success');
-      next();
+      db.save(repos, (err) => {
+        if (!err) {
+          next();
+        } else {
+          res.statusCode = 500;
+          res.end(`Error saving to database: ${err}`)
+        }
+      });
     }
     if (error) {
       res.statusCode = response.statusCode;
-      res.end(`Error: ${error}`)
+      res.end(`Error posting: ${error}`)
     }
   });
 }, function(req, res, next) {
@@ -32,7 +36,7 @@ app.post('/repos', function (req, res, next) {
     if (!error) {
       res.send(201, JSON.stringify(repos));
     } else {
-      res.send(500, JSON.stringify(error));
+      res.send(500, JSON.stringify({Error: "Post successful, but error getting repos from db: " + error }));
     }
   })
 });
