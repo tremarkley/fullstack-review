@@ -3,12 +3,12 @@ import React from 'react';
 const RepoList = (props) => {
   var reposDiv = []; 
  for (var i = 0; i < props.repos.length; i++) {
-  var repo = <tr>
+  var repo = <React.Fragment><tr>
     <td><a href={props.repos[i].url}>{props.repos[i].name}</a></td>
     <td>{props.repos[i].owner}</td>
     <td>{props.repos[i].description}</td>
     <td>{props.repos[i].stars}</td>
-  </tr>
+  </tr></React.Fragment>
   reposDiv.push(repo);
  } 
  return reposDiv.length > 0 ?
