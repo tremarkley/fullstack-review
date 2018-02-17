@@ -33,7 +33,8 @@ app.post('/repos', function (req, res, next) {
   });
 }, function(req, res, next) {
   db.getRepos((error, repos) => {
-    if (!error) {
+    if (error === null) {
+      console.log('error is empty!')
       res.send(201, JSON.stringify(repos));
     } else {
       res.send(500, JSON.stringify({Error: "Post successful, but error getting repos from db: " + error }));
