@@ -12,7 +12,7 @@ class App extends React.Component {
     }
     this.handleRepoData = this.handleRepoData.bind(this);
     this.loadRepos = this.loadRepos.bind(this);
-    this.loadRepos();
+    this.loadRepos();//move this to a react lifecycle method
   }
 
   loadRepos() {
@@ -22,6 +22,7 @@ class App extends React.Component {
   }
 
   handleRepoData(data) {
+    debugger
     var repoArray = JSON.parse(data);
     this.setState({
       repos: repoArray
@@ -29,7 +30,10 @@ class App extends React.Component {
   }
 
   search (term) {
-    $.post('/repos', { user: term }, this.loadRepos);
+    //refactor this to not pass an ajax call into the cb
+    //this might change the way you handle the post request on the server (hint: redirect?)
+    //$.post('/repos', { user: term }, this.loadRepos);
+    $.post('/repos', { user: term }, this.handleRepoData);
   }
 
   render () {

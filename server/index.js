@@ -8,7 +8,7 @@ const db = require('../database/index.js');
 app.use(bodyparser.urlencoded());
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/repos', function (req, res) {
+app.post('/repos', function (req, res, next) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
@@ -18,14 +18,23 @@ app.post('/repos', function (req, res) {
     if (!error && response.statusCode === 200) {
       var repos = JSON.parse(body);
       db.save(repos);
-      res.statusCode = 201;
-      res.end('Success');
+      // res.statusCode = 201;
+      // res.end('Success');
+      next();
     }
     if (error) {
       res.statusCode = response.statusCode;
       res.end(`Error: ${error}`)
     }
   });
+}, function(req, res, next) {
+  db.getRepos((error, repos) => {
+    if (!error) {
+      res.send(201, JSON.stringify(repos));
+    } else {
+      res.send(500, JSON.stringify(error));
+    }
+  })
 });
 
 app.get('/repos', function (req, res) {

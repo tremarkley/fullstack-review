@@ -15,18 +15,11 @@ let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (arrayRepos) => {
   for (let i = 0; i < arrayRepos.length; i++) {
-    //rename fullRepo to be more transparent that it'll be a document and use es6 Object Shorthand Notation to clean up line 21
-    
     var repoDoc = arrayRepos[i];
     repoDoc.owner = repoDoc.owner.login;
     repoDoc.url = repoDoc.html_url;
     repoDoc.stars = repoDoc.stargazers_count;
-    //var owner = fullRepo.owner.login;
-    //var newRepo = new Repo({id: fullRepo.id, name: fullRepo.name, owner: owner, url: fullRepo.html_url, description: fullRepo.description, stars: fullRepo.stargazers_count});
-    // var newRepo = new Repo(repoDoc);
-    // newRepo.save();
     new Repo(repoDoc).save();
-    //newRepo.save();
   }
 }
 
