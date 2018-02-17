@@ -14,6 +14,7 @@ app.post('/repos', function (req, res, next) {
   // save the repo information in the database
   var username = req.body.user;
   github.getReposByUsername(username, (error, response, body) =>{
+    console.log('FINISHED GETTING REPOS BY USERNAME');
     //be verbose about errors, show them to the user
     if (!error && response.statusCode === 200) {
       var repos = JSON.parse(body);
@@ -44,7 +45,6 @@ app.post('/repos', function (req, res, next) {
 app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos
   db.getRepos((error, repos) => {
-    console.log('GET REPOS FINISHED');
     if (!error) {
       res.send(200, JSON.stringify(repos));
     } else {
