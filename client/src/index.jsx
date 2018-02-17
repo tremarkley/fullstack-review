@@ -16,7 +16,6 @@ class App extends React.Component {
   }
 
   loadRepos() {
-    console.log('load repos!');
     $.get('/repos', {
       dataType: 'application/json',
     }, this.handleRepoData);
