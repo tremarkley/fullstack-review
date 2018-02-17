@@ -16,11 +16,13 @@ class App extends React.Component {
 
   componentDidMount() {
     if (this.state.repos.length === 0) {
+      console.log('Calling load repos!');
       this.loadRepos();
     }
   }
 
   loadRepos() {
+    console.log('load repos called!');
     $.get('/repos', {
       dataType: 'application/json',
     }, this.handleRepoData);
