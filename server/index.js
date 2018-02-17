@@ -14,12 +14,17 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   var username = req.body.user;
   github.getReposByUsername(username, (error, response, body) =>{
+    //be verbose about errors, show them to the user
     if (!error && response.statusCode === 200) {
       var repos = JSON.parse(body);
       db.save(repos);
       res.statusCode = 201;
       res.end('Success');
-    } 
+    }
+    if (error) {
+      res.statusCode = response.statusCode;
+      res.end(`Error: ${error}`)
+    }
   });
 });
 
