@@ -18,9 +18,16 @@ let save = (arrayRepos, callback) => {
     repoDoc.owner = repoDoc.owner.login;
     repoDoc.url = repoDoc.html_url;
     repoDoc.stars = repoDoc.stargazers_count;
-    new Repo(repoDoc).save((err, repo) => {
-      callback(err);
+
+    var query = { 'id': repoDoc.id };
+
+    Repo.findOneAndUpdate(query, repoDoc, { upsert:true }, function(err, doc){
+      if (err) { callback(error) };
+      //return res.send("succesfully saved");
     });
+    // new Repo(repoDoc).save((err, repo) => {
+    //   callback(err);
+    // });
   }
 }
 
