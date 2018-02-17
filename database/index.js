@@ -26,8 +26,8 @@ let save = (arrayRepos) => {
 //gets top 25 repos sorted by number of stars
 let getRepos = (callback) => {
   Repo.find().limit(25).sort({stars: -1}).exec((err, repos) => {
-    if (error) {
-      callback(error, null);
+    if (err) {
+      callback(err, null);
     } else {
       callback(null, repos);
     }
