@@ -11,10 +11,12 @@ class App extends React.Component {
       repos: []
     }
     this.handleRepoData = this.handleRepoData.bind(this);
+    this.loadRepos = this.loadRepos.bind(this);
     this.loadRepos();
   }
 
   loadRepos() {
+    console.log('load repos!');
     $.get('/repos', {
       dataType: 'application/json',
     }, this.handleRepoData);
@@ -28,12 +30,7 @@ class App extends React.Component {
   }
 
   search (term) {
-    $.post({
-      url: '/repos',
-      data: JSON.stringify({user: term}),
-      contentType: 'application/json',
-      dataType: 'application/json',
-    });
+    $.post('/repos', { user: term }, this.loadRepos);
   }
 
   render () {

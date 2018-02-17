@@ -4,7 +4,8 @@ const github = require('../helpers/github.js');
 const bodyparser = require('body-parser');
 const db = require('../database/index.js');
 
-app.use(bodyparser.json());
+// app.use(bodyparser.json());
+app.use(bodyparser.urlencoded());
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
@@ -17,7 +18,8 @@ app.post('/repos', function (req, res) {
     if (!error && response.statusCode === 200) {
       var repos = JSON.parse(body);
       db.save(repos);
-      res.send(201, 'Success');
+      res.statusCode = 201;
+      res.end('Success');
     } 
   });
 });
