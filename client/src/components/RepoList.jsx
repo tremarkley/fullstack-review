@@ -11,7 +11,7 @@ const RepoList = (props) => {
   </tr>
   reposDiv.push(repo);
  } 
-  return (
+ return reposDiv.length > 0 ?
     <div>
       <h4> Repo Table </h4>
       <table>
@@ -27,7 +27,7 @@ const RepoList = (props) => {
           {reposDiv}
         </tbody>
       </table>
-    </div>
-)}
+    </div> : <p>No Repos!</p>
+}
 
 export default RepoList;
