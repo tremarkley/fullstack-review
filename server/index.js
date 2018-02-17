@@ -44,6 +44,7 @@ app.post('/repos', function (req, res, next) {
 app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos
   db.getRepos((error, repos) => {
+    console.log('GET REPOS FINISHED');
     if (!error) {
       res.send(200, JSON.stringify(repos));
     } else {
