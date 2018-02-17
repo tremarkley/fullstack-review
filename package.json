@@ -19,6 +19,7 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "webpack": "^2.2.1",
     "body-parser": "^1.17.0",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
