@@ -12,7 +12,12 @@ class App extends React.Component {
     }
     this.handleRepoData = this.handleRepoData.bind(this);
     this.loadRepos = this.loadRepos.bind(this);
-    this.loadRepos();//move this to a react lifecycle method
+  }
+
+  componentDidMount() {
+    if (this.state.repos.length === 0) {
+      this.loadRepos();
+    }
   }
 
   loadRepos() {
@@ -22,7 +27,6 @@ class App extends React.Component {
   }
 
   handleRepoData(data) {
-    debugger
     var repoArray = JSON.parse(data);
     this.setState({
       repos: repoArray
