@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+//mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect(process.env.MONGODB_URI);
 
 let repoSchema = mongoose.Schema({
   id: {type:  Number, unique: true,},
