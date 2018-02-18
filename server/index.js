@@ -35,9 +35,9 @@ app.post('/repos', function (req, res, next) {
 }, function(req, res, next) {
   db.getRepos((error, repos) => {
     if (error === null || repos.length > 0) {
-      res.send(JSON.stringify(repos));
+      res.end(JSON.stringify(repos));
     } else {
-      res.send(JSON.stringify({Error: "Post successful, but error getting repos from db: " + error }));
+      res.end(JSON.stringify({Error: "Post successful, but error getting repos from db: " + error }));
     }
   })
 });
