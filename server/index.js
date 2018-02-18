@@ -22,11 +22,13 @@ app.post('/repos', function (req, res, next) {
         if (!err) {
           next();
         } else {
+          //error saving to database
           res.statusCode = 500;
           res.end(`Error saving to database: ${err}`)
         }
       });
     }
+    //error calling to github api
     if (error) {
       res.statusCode = response.statusCode;
       res.end(`Error posting: ${error}`)
